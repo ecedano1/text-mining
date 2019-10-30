@@ -1,0 +1,6 @@
+1. find reddit post of interest
+2. convert it to dictionary so as to analyze each word in the dictionary
+3. give the dictionary a name 
+
+4. Define config as configparser.configparser() 
+5. make config read the dictionary from the URL you paste within it??
