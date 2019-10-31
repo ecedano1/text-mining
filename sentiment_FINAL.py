@@ -2,8 +2,6 @@ import praw
 import nltk
 
 from nltk.sentiment.vader import SentimentIntensityAnalyzer 
-#used for measuring the intensity of the natural language of humans 
-
 
 reddit = praw.Reddit(client_id='1RjIws9QcWKMww',
                     client_secret='-K-88s47llEE3_1FASt-ey_UHZ4',
@@ -11,15 +9,8 @@ reddit = praw.Reddit(client_id='1RjIws9QcWKMww',
                     password='ECedano11!',
                     user_agent= 'windows:com.pythonsentimentapp.myredditapp:v1.2.3 (by/u/ecedano1)')
 
-sub = 'modernwarfare' #becomes the variable for the subreddit that will be used to pull the submissions/comments from
-submissions = reddit.subreddit(sub).new(limit=15)
-
-
-#Testing features of the submission functions
-# (limit = 20)
-# top('day', limit = 5) other functions 
-# hot('day', limit = 2)
-# new(limit= 3)
+sub = 'modernwarfare'
+submissions = reddit.subreddit(sub).new(limit=10)
 
 for submission in submissions:
     """
@@ -27,10 +18,7 @@ for submission in submissions:
     Helped me pinpoint which comments to use for sentiment analysis.
     
     """
-    print(submission.author, submission.title, submission.selftext, '\n')
-
-
-########################################### FINAL ATTEMPT #############################################
+    print(submission.author, submission.title, submission.selftext)
 
 
 def sentiment_scores(sentence): 
@@ -53,10 +41,10 @@ def sentiment_scores(sentence):
 
     """decide sentiment as positive, negative and neutral based on the compounded scores of each sentence used."""
 
-    if sentiment_dict['compound'] >= 0.05 : 
+    if sentiment_dict['compound'] >= 0.1 : 
         print("Positive") 
   
-    elif sentiment_dict['compound'] <= - 0.05 : 
+    elif sentiment_dict['compound'] <= - 0.1 : 
         print("Negative") 
   
     else : 
@@ -123,110 +111,3 @@ if __name__ == "__main__" :
     sentiment_scores(sentence5)
      #author: RedDevilLuca
 
-
-
-
-
-############################# DIFFERENT ATTEMPT #2 ################################################
-# import json
-
-
-# def vg_comment1 (): 
-#     filename1 = 'reddit_comment.txt'
-#     reddit_comment1 = {}
-
-#     with open(filename1) as rc1:
-#         for line in rc1:
-#             comment, description = line.strip().split(' ', 1)
-#             reddit_comment1[comment] = description.strip()
-
-# # print(json.dumps(reddit_comment1))
-
-# print (vg_comment1)
-# print(type(vg_comment1))
-
-#############################  DIFFERENT ATTEMPT #3 #########################################
-
-# VG_comment= dict('reddit_comment.txt')
-
-# vg_comment1= reddit.submission(id = 'dphxoh')
-# vg_comment2= reddit.submission(id = 'dphxzy')
-# vg_comment3= reddit.submission(id = 'dphxif')
-# vg_comment4= reddit.submission(id = 'dphya6')
-# vg_comment5= reddit.submission(id = 'dphycw')
-
-# sentence1 = vg_comment1
-# sentence2= vg_comment2
-# sentence3= vg_comment3
-# sentence4 = vg_comment4
-# sentence5= vg_comment5
-
-# score1 = SentimentIntensityAnalyzer().polarity_scores(vg_comment1)
-# score2 = SentimentIntensityAnalyzer().polarity_scores(sentence2)
-# score3 = SentimentIntensityAnalyzer().polarity_scores(sentence3)
-# score4 = SentimentIntensityAnalyzer().polarity_scores(sentence4)
-# score5 = SentimentIntensityAnalyzer().polarity_scores(sentence5)
-
-# print(score1)
-# print(score2)
-# print(score3)
-# print(score4)
-# print(score5)
-
-# ######################### FOR REDDIT POSTING visualisation: FAIL lol - didn't work ##################################
-
-# import praw
-# import nltk
-# import pandas
-
-# from nltk.sentiment.vader import SentimentIntensityAnalyzer 
-# #used for measuring the intensity of the natural language of humans 
-
-
-# reddit = praw.Reddit(client_id='EXAMPLE',
-#                     client_secret='EXAMPLE',
-#                     username='EXAMPLE',
-#                     password='EXAMPLE',
-#                     user_agent= 'EXAMPLE')
-
-# sub = 'modernwarfare'
-# submissions = reddit.subreddit(sub).new(limit = 10)
-# # (limit = 20)
-# # top('day', limit = 5) other versions
-# # hot('day', limit = 2)
-# # new(limit= 3)
-
-# top2 = [(submission.title, submission.selftext) for submission in submissions]
-# # top_level_comments = list(submissions.comments)
-# # all_comments = submissions.comments.list()
-
-# for title, text in top2: 
-#     print (title, text)
-
-# topics_dict = { "title":[], \
-#     "score":[],\
-#         "id":[], "url":[],\
-#             "comms_num": [], \
-#                 "created": [], \
-#                     "body":[]}
-
-
-# for submission in submissions:
-#     topics_dict["title"].append(submission.title)
-#     topics_dict["score"].append(submission.score)
-#     topics_dict["id"].append(submission.id)
-#     topics_dict["url"].append(submission.url)
-#     topics_dict["comms_num"].append(submission.num_comments)
-#     topics_dict["created"].append(submission.created)
-#     topics_dict["body"].append(submission.selftext)
-
-
-# pd = pandas
-# topics_data = pd.DataFrame(topics_dict)
-
-# print(topics_data)
-
-
-# # sentence = VG_dict
-# # score = SentimentIntensityAnalyzer().polarity_scores(sentence)
-# # print(score)
